@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "f49dc491-5a51-46fb-85f8-5098d78cb448",
+		"name": "PalestraBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21465168"
+	},
+	"item": [
+		{
+			"name": "HelloWorld",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}",
+					"host": [
+						"{{base}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"jwt\", jsonData.jwt);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"alessio\",\r\n    \"email\":\"alessio@email.it\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/auth/signin",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"jwt\", jsonData.jwt);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"alessio@email.it\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/auth/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "info user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"alessio@email.it\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/auth/user",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "me strapi",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHJhcGlKd3QiOiI5OTE3YWM1MGNmMjdjNWJlMDY1Yjk3OWJhYjJkNmY1NWVjYmI3YzMyYTQ3MTM0ZDY2ZTJhNjlhMzJhNDU2YjkzZTAzNDY4YmQzM2YzYzQ0YTE0MTM5NDlkZjJkMGNjMmYwZDY3MDA1OTU3OTc5YWJjMmYyY2I1ZDY2NWUxYjljNzNiNWJhOWI2MmQwYWI3ZmIxNTMyYTUyYmQ2MjdmZjFlOTE3YWE4YzIwMmVhNjZiNTQxZTBiNWY5MGI4MTJjZDg1MzViMWEzOTg1MGZlNDlmM2VhMmUyYTJkZTRkMjNjMzVlMjcwYjY3YmU3NzMyZDQyNzRiNGYzYzAxNTE1NTMxOTc2YWY0N2FjNTk4NjJhOThjZGNlYzJiNGM2ODJjZmMiLCJpYXQiOjE3MTEzMDczMTh9.5BlC6Z3euBS5S5ErJhKJeVGvLd9U1TwGx6HfHXtf4W0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:1337/api/users/me",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "jwt",
+			"value": ""
+		}
+	]
+}
