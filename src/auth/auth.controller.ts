@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Req, UseInterceptors } from '@nestjs/commo
 import { AuthService } from './auth.service';
 import { LoggingInterceptorInterceptor } from 'src/logging-interceptor/logging-interceptor.interceptor';
 import { JwtModificationInterceptor } from 'src/jwt-modification/jwt-modification.interceptor';
+import { getJwt } from 'src/common/utils';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +11,7 @@ export class AuthController {
     @Get('user')
     @UseInterceptors(JwtModificationInterceptor)
     async userInfo(@Req() request: Request){
-        const jwt = request.headers['authorization']?.split(' ')[1];
+        const jwt = getJwt(request)
 
         return this.authService.userInfo(jwt);
     }

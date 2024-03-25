@@ -1,18 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { createHeader } from 'src/common/utils';
 
 @Injectable()
 export class AuthService {
     constructor(private readonly configService: ConfigService){}
     
-    async userInfo(jwt: Request){
+    async userInfo(jwt: string){
         const response = await axios.get(`${this.configService.get('STRAPI_ENDPOINT')}/api/users/me`,
-        {
-            headers:{
-                'authorization': `Bearer ${jwt}`
-            }
-        });
+            createHeader(jwt),
+        );
 
         return response.data;
     }
