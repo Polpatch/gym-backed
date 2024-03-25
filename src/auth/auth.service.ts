@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { LoggingInterceptorInterceptor } from 'src/logging-interceptor/logging-interceptor.interceptor';
 
 @Injectable()
 export class AuthService {

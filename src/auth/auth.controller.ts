@@ -22,6 +22,7 @@ export class AuthController {
     }
 
     @Post('signin')
+    @UseInterceptors(LoggingInterceptorInterceptor)
     async signin(@Body() body: any){
         return this.authService.signin(body.username, body.email, body.password);
     }
