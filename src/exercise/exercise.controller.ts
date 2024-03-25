@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Req } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
+import { JwtModificationInterceptor } from 'src/jwt-modification/jwt-modification.interceptor';
+import { getJwt } from 'src/common/utils';
 
 @Controller('exercise')
+@UseInterceptors(JwtModificationInterceptor)
 export class ExerciseController {
   constructor(private readonly exerciseService: ExerciseService) {}
 
   @Post()
-  create(@Body() createExerciseDto: CreateExerciseDto) {
-    return this.exerciseService.create(createExerciseDto);
+  async create(@Body() createExerciseDto: CreateExerciseDto, @Req() request: Request) {
+    const jwt = getJwt(request);
+    return await this.exerciseService.create(createExerciseDto, jwt);
   }
 
   @Get()
-  findAll() {
-    return this.exerciseService.findAll();
+  async findAll(@Req() request: Request) {
+    const jwt = getJwt(request);
+    return await this.exerciseService.findAll(jwt);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exerciseService.findOne(+id);
+  async findOne(@Param('id') id: string, @Req() request: Request) {
+    const jwt = getJwt(request);
+    return await this.exerciseService.findOne(+id, jwt);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExerciseDto: UpdateExerciseDto) {
-    return this.exerciseService.update(+id, updateExerciseDto);
+  async update(@Param('id') id: string, @Body() updateExerciseDto: UpdateExerciseDto, @Req() request: Request) {
+    const jwt = getJwt(request);
+    return await this.exerciseService.update(+id, updateExerciseDto, jwt);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exerciseService.remove(+id);
+  async remove(@Param('id') id: string, @Req() request: Request) {
+    const jwt = getJwt(request);
+    return await this.exerciseService.remove(+id, jwt);
   }
 }
