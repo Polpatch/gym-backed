@@ -1,9 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
-import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
-import { createHeader } from 'src/common/utils';
 import { create, findAll, findOne, remove, update } from 'src/common/service-utilities';
 
 const name_service = 'exercises'
@@ -17,12 +15,12 @@ export class ExerciseService {
   }
   
 
-  async findAll(jwt: string) {
-    return await findAll(jwt, this.configService.get('STRAPI_ENDPOINT'), name_service);
+  async findAll(jwt: string, getAll) {
+    return await findAll(jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, getAll);
   }
 
-  async findOne(id: number, jwt: string) {
-    return await findOne(id, jwt, this.configService.get('STRAPI_ENDPOINT'), name_service);
+  async findOne(id: number, jwt: string, getAll) {
+    return await findOne(id, jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, getAll);
   }
 
   async update(id: number, data: UpdateExerciseDto, jwt: string) {

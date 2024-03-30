@@ -48,7 +48,7 @@ try{
 
     const response = await axios.get(
         `${endpoint}/api/${name_service}/${id}`,
-        createHeader(jwt),
+        config
     )
 
     return response.data.data;

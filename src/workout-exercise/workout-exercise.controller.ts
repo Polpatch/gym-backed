@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Req, Query } from '@nestjs/common';
 import { WorkoutExerciseService } from './workout-exercise.service';
 import { CreateWorkoutExerciseDto } from './dto/create-workout-exercise.dto';
 import { UpdateWorkoutExerciseDto } from './dto/update-workout-exercise.dto';
@@ -17,15 +17,15 @@ export class WorkoutExerciseController {
   }
 
   @Get()
-  async findAll(@Req() request: Request) {
+  async findAll(@Req() request: Request, @Query('getAll') getAll: string) {
     const jwt = getJwt(request);
-    return await this.workoutExerciseService.findAll(jwt);
+    return await this.workoutExerciseService.findAll(jwt, getAll === 'true');
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @Req() request: Request) {
+  async findOne(@Param('id') id: string, @Req() request: Request, @Query('getAll') getAll: string) {
     const jwt = getJwt(request);
-    return await this.workoutExerciseService.findOne(+id, jwt);
+    return await this.workoutExerciseService.findOne(+id, jwt, getAll === 'true');
   }
 
   @Patch(':id')

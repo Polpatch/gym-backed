@@ -7,12 +7,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CryptoService } from './crypto/crypto.service';
 import { WorkoutModule } from './workout/workout.module';
 import { WorkoutExerciseModule } from './workout-exercise/workout-exercise.module';
+import { ProgressModule } from './progress/progress.module';
 
 @Module({
   imports: [ExerciseModule, AuthModule, ConfigModule.forRoot({
       envFilePath: `.env`,
       isGlobal: true,
-    }), WorkoutModule, WorkoutExerciseModule],
+    }), WorkoutModule, WorkoutExerciseModule, ProgressModule],
   controllers: [AppController],
   providers: [AppService, CryptoService],
 })

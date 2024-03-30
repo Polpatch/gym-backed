@@ -17,12 +17,12 @@ export class WorkoutExerciseService {
 
   }
 
-  async findAll(jwt: string) {
-    return await findAll(jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, true);
+  async findAll(jwt: string, getAll: boolean) {
+    return await findAll(jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, getAll);
   }
 
-  async findOne(id: number, jwt: string) {
-    return await findOne(id, jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, true);
+  async findOne(id: number, jwt: string, getAll: boolean) {
+    return await findOne(id, jwt, this.configService.get('STRAPI_ENDPOINT'), name_service, getAll);
   }
 
   async update(id: number, data: UpdateWorkoutExerciseDto, jwt: string) {
