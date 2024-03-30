@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDate, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateWorkoutDto {
     @IsNotEmpty()
@@ -6,8 +6,12 @@ export class CreateWorkoutDto {
     readonly name: string;
 
     @IsDate()
-    readonly description: string;
+    readonly start: string;
 
     @IsDate()
-    readonly url: string;
+    readonly end: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    workout_exercises: string[];
 }
