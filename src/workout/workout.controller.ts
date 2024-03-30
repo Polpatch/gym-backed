@@ -11,32 +11,32 @@ export class WorkoutController {
   constructor(private readonly workoutService: WorkoutService) {}
 
   @Post()
-  create(@Body() createWorkoutDto: CreateWorkoutDto, @Req() request: Request) {
+  async create(@Body() createWorkoutDto: CreateWorkoutDto, @Req() request: Request) {
     const jwt = getJwt(request);
-    return this.workoutService.create(createWorkoutDto, jwt);
+    return await this.workoutService.create(createWorkoutDto, jwt);
   }
 
   @Get()
-  findAll(@Req() request: Request) {
+  async findAll(@Req() request: Request) {
     const jwt = getJwt(request);
-    return this.workoutService.findAll(jwt);
+    return await this.workoutService.findAll(jwt);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() request: Request) {
+  async findOne(@Param('id') id: string, @Req() request: Request) {
     const jwt = getJwt(request);
-    return this.workoutService.findOne(+id, jwt);
+    return await this.workoutService.findOne(+id, jwt);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkoutDto: UpdateWorkoutDto, @Req() request: Request) {
+  async update(@Param('id') id: string, @Body() updateWorkoutDto: UpdateWorkoutDto, @Req() request: Request) {
     const jwt = getJwt(request);
-    return this.workoutService.update(+id, updateWorkoutDto, jwt);
+    return await this.workoutService.update(+id, updateWorkoutDto, jwt);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() request: Request) {
+  async remove(@Param('id') id: string, @Req() request: Request) {
     const jwt = getJwt(request);
-    return this.workoutService.remove(+id, jwt);
+    return await this.workoutService.remove(+id, jwt);
   }
 }
